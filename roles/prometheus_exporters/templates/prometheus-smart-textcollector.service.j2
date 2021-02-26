@@ -1,0 +1,30 @@
+[Unit]
+Description=Prometheus Smart Exporter TextCollector
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "/usr/local/bin/smartmon.sh > {{ prometheus_textfile_dir }}/smart.prom"
+
+NoNewPrivileges=true
+LockPersonality=true
+
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths={{ prometheus_textfile_dir }}
+
+MemoryDenyWriteExecute=true
+RemoveIPC=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+
+PrivateNetwork=true
+ProtectHostname=true
+ProtectControlGroups=true
+ProtectKernelLogs=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+#ProtectClock=true
+
+SystemCallArchitectures=native

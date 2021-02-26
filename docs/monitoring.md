@@ -65,3 +65,7 @@ For http(s)/icmp monitoring [prometheus-black-exporter](https://github.com/prome
 ### Archive monitoring
 
 The [Archive](https://archive.archlinux.org) and its mirrors defined in `archive_mirrors` are monitored using a textcollector which monitors the archive size in bytes.
+
+### Smart
+
+

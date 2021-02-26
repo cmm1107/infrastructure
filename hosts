@@ -148,3 +148,9 @@ america.mirror.pkgbuild.com
 europe.mirror.pkgbuild.com
 repro2.pkgbuild.com
 runner1.archlinux.org
+
+[dedicated_servers]
+gemini.archlinux.org
+luna.archlinux.org
+build.archlinux.org
+secure-runner1.archlinux.org

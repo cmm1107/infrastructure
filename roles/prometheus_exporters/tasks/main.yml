@@ -7,6 +7,10 @@
   pacman: name=prometheus-blackbox-exporter state=present
   when: "'prometheus' in group_names"
 
+- name: install smartmontools for dedicated servers
+  pacman: name=smartmontools state=present
+  when: "'dedicated_servers' in group_names"
+
 - name: install prometheus-memcached-exporter
   pacman: name=prometheus-memcached-exporter state=present
   when: "'memcached' in group_names"
@@ -57,6 +61,7 @@
     - archive-textcollector.sh
     - repository-textcollector.sh
     - btrfs-textcollector.sh
+    - smartmon.sh
 
 - name: install arch textcollector service
   template: src=prometheus-arch-textcollector.service.j2 dest=/etc/systemd/system/prometheus-arch-textcollector.service owner=root group=root mode=644
@@ -66,6 +71,15 @@
 
 - name: enable and start prometheus arch textcollector timer
   systemd: name=prometheus-arch-textcollector.timer enabled=yes daemon_reload=yes state=started
+
+- name: install smart textcollector service
+  template: src=prometheus-smart-textcollector.service.j2 dest=/etc/systemd/system/prometheus-smart-textcollector.service owner=root group=root mode=644
+
+- name: install smart textcollector timer
+  template: src=prometheus-smart-textcollector.timer.j2 dest=/etc/systemd/system/prometheus-smart-textcollector.timer owner=root group=root mode=644
+
+- name: enable and start prometheus smart textcollector timer
+  systemd: name=prometheus-smart-textcollector.timer enabled=yes daemon_reload=yes state=started
 
 - name: install borg textcollector service
   template: src=prometheus-borg-textcollector.service.j2 dest=/etc/systemd/system/prometheus-borg-textcollector.service owner=root group=root mode=644
